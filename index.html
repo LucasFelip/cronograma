@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/img/icon_sunflower.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌹 Feliz Dia dos Namorados</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-yellow: #FFD700;
+            --primary-orange: #FF8C00;
+            --primary-red: #DC143C;
+            --primary-pink: #FF69B4;
+            --secondary-cream: #FFF8DC;
+            --secondary-light: #FFFACD;
+            --text-dark: #2C2C2C;
+            --text-light: #666;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --gradient-sunset: linear-gradient(135deg, #FF8C00, #FFD700);
+            --gradient-love: linear-gradient(135deg, #FF69B4, #DC143C);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, var(--secondary-cream), #FFF);
+            color: var(--text-dark);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Decorações de fundo animadas */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: var(--primary-pink);
+            opacity: 0.1;
+            animation: float 15s infinite linear;
+            font-size: 2rem;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header principal */
+        .header {
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+            background: var(--gradient-sunset);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: sparkle 20s linear infinite;
+        }
+
+        @keyframes sparkle {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-100px) translateY(-100px); }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        /* Container principal */
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Cronograma */
+        .schedule {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+        }
+
+        /* Timeline vertical */
+        .schedule::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-sunset);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+        }
+
+        /* Cards do cronograma */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-left: 70px;
+            box-shadow: 0 8px 25px var(--shadow-light);
+            border: 3px solid var(--secondary-light);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -73px;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-right-color: var(--secondary-light);
+            transform: translateY(-50%);
+            transition: border-right-color 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) translateX(5px);
+            box-shadow: 0 15px 40px var(--shadow-medium);
+            border-color: var(--primary-yellow);
+        }
+
+        .card:hover::before {
+            border-right-color: var(--primary-yellow);
+        }
+
+        /* Ícone da timeline */
+        .card-icon {
+            position: absolute;
+            left: -88px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-sunset);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            border: 4px solid white;
+            box-shadow: 0 4px 15px var(--shadow-medium);
+            z-index: 10;
+        }
+
+        /* Conteúdo dos cards */
+        .card-time {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Card ativo */
+        .card.active {
+            background: linear-gradient(135deg, #FFF8DC, #FFFACD);
+            border-color: var(--primary-yellow);
+            transform: translateY(-8px) translateX(5px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .card.active::before {
+            border-right-color: var(--primary-yellow);
+        }
+
+        .card.active .card-icon {
+            background: var(--gradient-love);
+            animation: pulse 2s infinite;
+        }
+
+        .card.active::after {
+            content: "🌻🌻";
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Elemento especial do presente */
+        .gift-reveal {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #FFE4E1, #FFF0F5);
+            border-radius: 15px;
+            border: 2px dashed var(--primary-pink);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gift-reveal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .countdown-timer {
+            font-size: 1.2rem;
+            color: var(--primary-red);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .gift-message {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .reveal-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--gradient-love);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reveal-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.4);
+        }
+
+        .reveal-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .reveal-button:hover::before {
+            left: 100%;
+        }
+
+        .reveal-button.disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .reveal-button.disabled:hover {
+            transform: none;
+        }
+
+        /* Status do presente */
+        .gift-status {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .gift-status.waiting {
+            background: #FFF3CD;
+            color: #856404;
+            border: 1px solid #FFEAA7;
+        }
+
+        .gift-status.available {
+            background: #D4EDDA;
+            color: #155724;
+            border: 1px solid #C3E6CB;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--text-dark);
+            color: white;
+            margin-top: 4rem;
+        }
+
+        .footer h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-yellow);
+        }
+
+        .footer p {
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Configurações de teste */
+        .test-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-medium);
+            z-index: 1000;
+            font-size: 0.9rem;
+        }
+
+        .test-controls h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-red);
+        }
+
+        .test-controls input {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .test-controls button {
+            background: var(--primary-yellow);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .schedule::before {
+                left: 20px;
+            }
+
+            .card {
+                margin-left: 50px;
+                padding: 1.5rem;
+            }
+
+            .card::before {
+                left: -53px;
+            }
+
+            .card-icon {
+                left: -68px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .test-controls {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 2rem auto;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Corações flutuantes -->
+<div class="floating-hearts">
+    <div class="heart" style="left: 10%; animation-delay: 0s;">💕</div>
+    <div class="heart" style="left: 20%; animation-delay: 2s;">❤️</div>
+    <div class="heart" style="left: 30%; animation-delay: 4s;">💖</div>
+    <div class="heart" style="left: 40%; animation-delay: 6s;">💝</div>
+    <div class="heart" style="left: 50%; animation-delay: 8s;">💕</div>
+    <div class="heart" style="left: 60%; animation-delay: 10s;">❤️</div>
+    <div class="heart" style="left: 70%; animation-delay: 12s;">💖</div>
+    <div class="heart" style="left: 80%; animation-delay: 14s;">💝</div>
+    <div class="heart" style="left: 90%; animation-delay: 16s;">💕</div>
+</div>
+
+<!-- Header -->
+<header class="header">
+    <h1>🌹 Nosso Dia dos Namorados</h1>
+    <div class="subtitle">Um cronograma especial feito com todo amor para celebrar nosso dia</div>
+</header>
+
+<!-- Controles de teste -->
+<!--<div class="test-controls">-->
+<!--    <h4>⚙️ Controles de Teste</h4>-->
+<!--    <label>Data de revelação:</label>-->
+<!--    <input type="date" id="testDate" />-->
+<!--    <label>Hora de revelação:</label>-->
+<!--    <input type="time" id="testTime" />-->
+<!--    <button onclick="updateTestDateTime()">Aplicar</button>-->
+<!--    <button onclick="resetToDefault()">Resetar</button>-->
+<!--    <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #666;">-->
+<!--        Atual: <span id="currentDateTime"></span>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!-- Container principal -->
+<div class="main-container">
+    <div class="schedule">
+        <!-- Card 1: 14h00 -->
+        <div class="card" data-time="14:00">
+            <div class="card-icon">
+                <i class="fas fa-door-open"></i>
+            </div>
+            <div class="card-time">
+                <i class="fas fa-clock"></i>
+                14h00
+            </div>
+            <h3>Chegada e Boas-Vindas</h3>
+            <p>Música suave, mimo especial e clima de amor no ar. Um abraço apertado para começar nosso dia especial.</p>
+        </div>
+
+        <!-- Card 2: 15h00 -->
+        <div class="card" data-time="15:00">
+            <div class="card-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="card-time">
+                <i class="fas fa-clock"></i>
+                15h00
+            </div>
+            <h3>Escolhas a Dois</h3>
+            <p>Escolher filmes, restaurante e começar a escrever os vales. Decidir juntos as atividades da noite.</p>
+        </div>
+
+        <!-- Card 3: 17h00 -->
+        <div class="card" data-time="17:00">
+            <div class="card-icon">
+                <i class="fas fa-pause"></i>
+            </div>
+            <div class="card-time">
+                <i class="fas fa-clock"></i>
+                17h00
+            </div>
+            <h3>Transição Romântica</h3>
+            <p>Encerramento do trabalho e início do nosso tempo juntos. Preparar o ambiente para a noite especial.</p>
+        </div>
+
+        <!-- Card 4: 17h30 - PRESENTE ESPECIAL -->
+        <div class="card" data-time="17:30" id="giftCard">
+            <div class="card-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <div class="card-time">
+                <i class="fas fa-clock"></i>
+                17h30
+            </div>
+            <h3>Presente Especial</h3>
+            <p>Apresentação do site com carinho e emoção. Um presente digital para guardar para sempre.</p>
+
+            <!-- Elemento de revelação do presente -->
+            <div class="gift-reveal">
+                <div class="gift-status waiting" id="giftStatus">
+                    <i class="fas fa-hourglass-half"></i>
+                    Aguardando o momento especial...
+                </div>
+                <div class="countdown-timer" id="countdown"></div>
+                <div class="gift-message" id="giftMessage">
+                    "O amor verdadeiro não tem pressa, mas quando chega o momento certo,
+                    ele se revela em toda sua beleza..."
+                </div>
+                <a href="https://felizdiadosnamoradosmanu.netlify.app/"
+                   target="_blank"
+                   class="reveal-button disabled"
+                   id="revealButton">
+                    <i class="fas fa-seedling"></i>
+                    <span>Conheça o jardim que cultivei para você</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Card 5: 18h30 -->
+        <div class="card" data-time="18:30">
+            <div class="card-icon">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <div class="card-time">
+                <i class="fas fa-clock"></i>
+                18h30
+            </div>
+            <h3>Jantar Romântico</h3>
+            <p>Sushi, luz suave e uma conversa cheia de amor. Momento para saborear a comida e nossa companhia.</p>
+        </div>
+
+        <!-- Card 6: 19h30 -->
+        <div class="card" data-time="19:30">
+            <div class="card-icon">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+            <div class="card-time">
+                <i class="fas fa-clock"></i>
+                19h30
+            </div>
+            <h3>Troca dos Vales</h3>
+            <p>Momento leve e divertido para escolher um mimo futuro. Promessas de carinho para os próximos meses.</p>
+        </div>
+
+        <!-- Card 7: 19h45 -->
+        <div class="card" data-time="19:45">
+            <div class="card-icon">
+                <i class="fas fa-film"></i>
+            </div>
+            <div class="card-time">
+                <i class="fas fa-clock"></i>
+                19h45
+            </div>
+            <h3>Sessão de Filmes</h3>
+            <p>Aproveitar os dois filmes escolhidos juntinhos. Pipoca, cobertor e aconchego.</p>
+        </div>
+
+        <!-- Card 8: 21h00 -->
+        <div class="card" data-time="21:00">
+            <div class="card-icon">
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="card-time">
+                <i class="fas fa-clock"></i>
+                21h00
+            </div>
+            <h3>Encerramento com Carinho</h3>
+            <p>Abraço demorado, palavras doces e planos para o futuro. Celebrar nosso amor antes de dormir.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <h3>💕 Com Todo Meu Amor</h3>
+    <p>Este dia foi planejado pensando em cada detalhe que te faz sorrir.</p>
+    <p>Você é minha inspiração, minha alegria e meu amor eterno.</p>
+    <p style="margin-top: 2rem; opacity: 0.7;">
+        <i class="fas fa-heart"></i>
+        Criado especialmente para você • 2025
+    </p>
+</footer>
+
+<script>
+    // Configurações de data e hora para revelação (pode ser alterado para testes)
+    let revealDateTime = {
+        year: 2025,
+        month: 6,  // Junho (0-indexado, então 5 = junho)
+        day: 12,
+        hour: 17,
+        minute: 30
+    };
+
+    // Elementos DOM
+    const giftStatus = document.getElementById('giftStatus');
+    const countdown = document.getElementById('countdown');
+    const giftMessage = document.getElementById('giftMessage');
+    const revealButton = document.getElementById('revealButton');
+    const currentDateTimeSpan = document.getElementById('currentDateTime');
+
+    // Função para atualizar o cronômetro e status do presente
+    function updateGiftStatus() {
+        const now = new Date();
+        const revealDate = new Date(
+            revealDateTime.year,
+            revealDateTime.month - 1, // JavaScript usa 0-indexado para meses
+            revealDateTime.day,
+            revealDateTime.hour,
+            revealDateTime.minute
+        );
+
+        // Atualizar display da data/hora atual
+        currentDateTimeSpan.textContent = now.toLocaleString('pt-BR');
+
+        const timeDiff = revealDate.getTime() - now.getTime();
+
+        if (timeDiff <= 0) {
+            // Presente pode ser revelado
+            giftStatus.className = 'gift-status available';
+            giftStatus.innerHTML = '<i class="fas fa-gift"></i> Seu presente está pronto! 🎁';
+
+            countdown.style.display = 'none';
+
+            giftMessage.innerHTML = '✨ O momento chegou! Clique no botão abaixo para descobrir a surpresa especial que preparei para você com todo meu amor. ✨';
+
+            revealButton.classList.remove('disabled');
+            revealButton.style.pointerEvents = 'auto';
+
+        } else {
+            // Ainda não é hora
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            let countdownText = '';
+            if (days > 0) {
+                countdownText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else if (hours > 0) {
+                countdownText = `${hours}h ${minutes}m ${seconds}s`;
+            } else if (minutes > 0) {
+                countdownText = `${minutes}m ${seconds}s`;
+            } else {
+                countdownText = `${seconds}s`;
+            }
+
+            countdown.innerHTML = `⏰ Faltam: ${countdownText}`;
+            countdown.style.display = 'block';
+
+            giftStatus.className = 'gift-status waiting';
+            giftStatus.innerHTML = '<i class="fas fa-hourglass-half"></i> Aguardando o momento especial...';
+
+            revealButton.classList.add('disabled');
+            revealButton.style.pointerEvents = 'none';
+        }
+    }
+
+    // Função para destacar o card ativo
+    function highlightCurrentCard() {
+        const now = new Date();
+        const currentHours = now.getHours();
+        const currentMinutes = now.getMinutes();
+        const currentTime = currentHours * 60 + currentMinutes;
+
+        document.querySelectorAll(".card").forEach((card) => {
+            const [h, m] = card.dataset.time.split(":").map(Number);
+            const cardTime = h * 60 + m;
+
+            if (currentTime >= cardTime && currentTime < cardTime + 60) {
+                card.classList.add("active");
+            } else {
+                card.classList.remove("active");
+            }
+        });
+    }
+
+    // Funções para controles de teste
+    function updateTestDateTime() {
+        const testDate = document.getElementById('testDate').value;
+        const testTime = document.getElementById('testTime').value;
+
+        if (testDate && testTime) {
+            const [year, month, day] = testDate.split('-').map(Number);
+            const [hour, minute] = testTime.split(':').map(Number);
+
+            revealDateTime = { year, month, day, hour, minute };
+
+            alert(`Data de revelação atualizada para: ${day}/${month}/${year} às ${hour}:${minute.toString().padStart(2, '0')}`);
+        }
+    }
+
+    function resetToDefault() {
+        revealDateTime = {
+            year: 2025,
+            month: 6,
+            day: 12,
+            hour: 17,
+            minute: 30
+        };
+
+        // Atualizar campos de input
+        document.getElementById('testDate').value = '2025-06-12';
+        document.getElementById('testTime').value = '17:30';
+
+        alert('Data de revelação resetada para: 12/06/2025 às 17:30');
+    }
+
+    // Inicializar campos de teste com valores padrão
+    function initializeTestControls() {
+        document.getElementById('testDate').value = `${revealDateTime.year}-${revealDateTime.month.toString().padStart(2, '0')}-${revealDateTime.day.toString().padStart(2, '0')}`;
+        document.getElementById('testTime').value = `${revealDateTime.hour.toString().padStart(2, '0')}:${revealDateTime.minute.toString().padStart(2, '0')}`;
+    }
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeTestControls();
+        updateGiftStatus();
+        highlightCurrentCard();
+
+        // Atualizar a cada segundo
+        setInterval(updateGiftStatus, 1000);
+        setInterval(highlightCurrentCard, 60000); // Cards a cada minuto
+    });
+</script>
+</body>
+</html>
+
