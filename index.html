@@ -347,10 +347,13 @@
             background: #ccc;
             cursor: not-allowed;
             box-shadow: none;
+            pointer-events: none;
+            opacity: 0.6;
         }
 
         .reveal-button.disabled:hover {
             transform: none;
+            box-shadow: none;
         }
 
         /* Status do presente */
@@ -683,6 +686,7 @@
 
             revealButton.classList.remove('disabled');
             revealButton.style.pointerEvents = 'auto';
+            revealButton.removeAttribute('disabled');
 
         } else {
             // Ainda não é hora
@@ -710,6 +714,7 @@
 
             revealButton.classList.add('disabled');
             revealButton.style.pointerEvents = 'none';
+            revealButton.setAttribute('disabled', 'true');
         }
     }
 
@@ -774,6 +779,15 @@
         initializeTestControls();
         updateGiftStatus();
         highlightCurrentCard();
+
+        // Adicionar event listener para prevenir cliques quando desabilitado
+        revealButton.addEventListener('click', function(e) {
+            if (this.classList.contains('disabled') || this.hasAttribute('disabled')) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        });
 
         // Atualizar a cada segundo
         setInterval(updateGiftStatus, 1000);
